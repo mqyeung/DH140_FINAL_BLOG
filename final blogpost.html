@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Title: Data Analysis and Visualization of Car Dataset</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="final blogpost_files/libs/clipboard/clipboard.min.js"></script>
+<script src="final blogpost_files/libs/quarto-html/quarto.js"></script>
+<script src="final blogpost_files/libs/quarto-html/popper.min.js"></script>
+<script src="final blogpost_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="final blogpost_files/libs/quarto-html/anchor.min.js"></script>
+<link href="final blogpost_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="final blogpost_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="final blogpost_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="final blogpost_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="final blogpost_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Title: Data Analysis and Visualization of Car Dataset</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Introduction: In this analysis, I delved into the fascinating world of fuel efficiency in the automotive industry. My research question aimed to explore how different fuel types and engine technologies influenced the highway miles per gallon (mpg) of cars over time, shedding light on crucial environmental and economic considerations.</p>
+<p>Data and Analytical Process: To conduct this study, I worked with a comprehensive car dataset, which provided extensive information on attributes like fuel efficiency, engine types, fuel types, and model years. Utilizing the powerful Pandas library in Python, I imported the dataset and embarked on a thorough data cleaning process. This crucial step involved identifying and eliminating any duplicate entries or missing values, ensuring the reliability of my findings.</p>
+<p>Results: My analysis commenced with a comparison of the highway mpg across various fuel types, giving me valuable insights into the diverse trends in fuel efficiency. Visualizing this data allowed me to discern variations in mpg performance, particularly with gasoline-powered cars displaying incremental improvements over the years. Additionally, I noticed unique patterns in other fuel types, prompting me to investigate the underlying factors responsible for such distinctions.</p>
+<p>Next, I conducted a longitudinal analysis of fuel efficiency for each fuel type, grouping cars by their model years and calculating the average mpg for each group. This granular approach offered a comprehensive perspective on the evolution of fuel efficiency over time. I observed steady improvements in gasoline-powered cars, hinting at technological advancements or consumer preferences for better fuel efficiency. Concurrently, fluctuations in other fuel types piqued my curiosity, leading me to explore potential market dynamics or technological developments driving these changes.</p>
+<p>Moreover, I turned my attention to the role of engine technology in influencing fuel efficiency. Specifically, I explored the performance of cars equipped with turbo engines, seeking to gauge their impact on mpg. Analyzing turbo-equipped vehicles allowed me to discern their potential as a means of enhancing fuel efficiency.</p>
+<p>Conclusion: My data analysis and visualization provided significant insights into the fuel efficiency landscape of the automotive industry. I uncovered how different fuel types and engine technologies shaped mpg outcomes, offering valuable implications for manufacturers, policymakers, and consumers. Leveraging Python libraries, especially Pandas, expedited my analysis, empowering me to extract meaningful patterns from the dataset. This experience serves as a foundation for future research and decision-making, fueling the pursuit of sustainable and fuel-efficient mobility solutions in the dynamic automotive sector.</p>
+<p>I will now go ahead and share a few of the key graphs which helped shape this perspective:</p>
+<section id="graph-average-difference-between-fuel-types" class="level1">
+<h1>Graph average difference between fuel types:</h1>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract relevant columns</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>fuel_data <span class="op">=</span> df[[<span class="st">'Fuel Information.Highway mpg'</span>, <span class="st">'Fuel Information.Fuel Type'</span>]]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Group data by Fuel Type and calculate the mean Highway mpg for each group</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>mean_highway_mpg <span class="op">=</span> fuel_data.groupby(<span class="st">'Fuel Information.Fuel Type'</span>)[<span class="st">'Fuel Information.Highway mpg'</span>].mean().reset_index()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort data by mean Highway mpg in descending order</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>mean_highway_mpg <span class="op">=</span> mean_highway_mpg.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the comparison using a bar plot</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">'Fuel Information.Fuel Type'</span>, y<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, data<span class="op">=</span>mean_highway_mpg, palette<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Fuel Type'</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean Highway mpg'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Comparison of Fuel Type based on Mean Highway mpg'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="graph-elaborating-previous-graph-showing-mean-highway-mpg-for-cars-of-each-year-separated-by-fuel-type" class="level1">
+<h1>Graph elaborating previous graph, showing mean highway mpg for cars of each year separated by fuel type</h1>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean Highway mpg for cars with the same 'Identification.Year' and 'Fuel Information.Fuel Type'</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>mean_highway_mpg_by_year_and_fuel <span class="op">=</span> df.groupby([<span class="st">'Identification.Year'</span>, <span class="st">'Fuel Information.Fuel Type'</span>])[<span class="st">'Fuel Information.Highway mpg'</span>].mean().reset_index()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the comparison using a line plot for each fuel type</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>mean_highway_mpg_by_year_and_fuel, x<span class="op">=</span><span class="st">'Identification.Year'</span>, y<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, hue<span class="op">=</span><span class="st">'Fuel Information.Fuel Type'</span>, palette<span class="op">=</span><span class="st">'viridis'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.axhline(df['Fuel Information.Highway mpg'].mean(), color='red', linestyle='--', label='Overall Mean')</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Model Year'</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean Highway mpg'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Mean Highway mpg for Cars of Each Year and Fuel Type'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.legend()</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="graph-elaborating-previous-graph-showing-mean-highway-mpg-for-cars-of-each-year-separated-by-fuel-type-and-also-transmission" class="level1">
+<h1>Graph elaborating previous graph, showing mean highway mpg for cars of each year separated by fuel type AND also transmission</h1>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean Highway mpg for cars with the same 'Identification.Year', 'Fuel Information.Fuel Type', and 'Identification.Classification'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mean_highway_mpg_by_year_fuel_auto_manual <span class="op">=</span> df.groupby([<span class="st">'Identification.Year'</span>, <span class="st">'Fuel Information.Fuel Type'</span>, <span class="st">'Identification.Classification'</span>])[<span class="st">'Fuel Information.Highway mpg'</span>].mean().reset_index()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the comparison using a line plot for each fuel type, split by automatic and manual transmissions</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>mean_highway_mpg_by_year_fuel_auto_manual, x<span class="op">=</span><span class="st">'Identification.Year'</span>, y<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, hue<span class="op">=</span><span class="st">'Fuel Information.Fuel Type'</span>, style<span class="op">=</span><span class="st">'Identification.Classification'</span>, markers<span class="op">=</span><span class="va">True</span>, palette<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Model Year'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean Highway mpg'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Mean Highway mpg for Cars of Each Year, Fuel Type, and Transmission'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">'Transmission'</span>, loc<span class="op">=</span><span class="st">'center left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Based on the analysis of the three graphs, it is evident that diesel fuel consistently achieves the highest miles per gallon (MPG) among the various fuel types. Specifically, diesel manual vehicles stand out as the most efficient, achieving approximately 30 miles per gallon or higher on average. In a close second place, compressed natural gas (CNG) exhibits competitive fuel efficiency, but it still falls behind diesel manual vehicles in terms of MPG performance.</p>
+<p>It should be noted that CNG is exclusively available in automatic transmission, which, on average, results in higher MPG compared to the combined average of diesel manual and diesel automatic vehicles. This indicates that automatic CNG vehicles have relatively better fuel efficiency than their diesel automatic counterparts, though they still do not match the performance of diesel manual vehicles.</p>
+<p>In contrast, E85 fuel ranks below all other fuel types in terms of MPG performance. Gasoline-powered vehicles occupy a middle ground, with their MPG ratings falling between those of automatic diesel and manual diesel vehicles. Specifically, gasoline manual vehicles tend to perform better in terms of MPG compared to automatic gasoline vehicles.</p>
+<p>In conclusion, diesel manual vehicles consistently demonstrate the highest fuel efficiency, followed closely by automatic CNG vehicles. Gasoline-powered vehicles, while offering a decent MPG, tend to perform better in manual transmission and slightly worse in automatic transmission compared to their diesel counterparts. E85 fuel lags behind all other fuels in terms of MPG performance.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' contains the word 'hybrid'</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'hybrid'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the filtered data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>sorted_data <span class="op">=</span> filtered_data.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>top_thirty_cars <span class="op">=</span> sorted_data.head(<span class="dv">30</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart with different colors based on 'Fuel Information.Fuel Type' and 'Engine Information.Engine Type'</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> []</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fuel_type, engine_type <span class="kw">in</span> <span class="bu">zip</span>(top_thirty_cars[<span class="st">'Fuel Information.Fuel Type'</span>], top_thirty_cars[<span class="st">'Engine Information.Engine Type'</span>]):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'diesel'</span> <span class="kw">in</span> engine_type.lower() <span class="kw">or</span> fuel_type <span class="op">==</span> <span class="st">'Diesel'</span>:</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'lightgrey'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> fuel_type <span class="op">==</span> <span class="st">'Compressed Natural Gas'</span>:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'green'</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'blue'</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_cars[<span class="st">'Identification.ID'</span>], top_thirty_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span>colors)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 Cars with Highest Highway mpg (Color-Coded by Fuel and Engine Type)'</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>A comparative analysis of the top three vehicles exhibiting the best miles per gallon (MPG) reveals that 12 out of the 30 top-performing cars belong to the diesel category, with a specific focus on Volkswagen models. However, there are notable exceptions within this group, comprising the 2011 and 2012 Chevrolet Cruze eco, along with the 2012 Honda Civic HF sedan. Despite not falling under the diesel category, these vehicles still demonstrate exceptional fuel efficiency and secure commendable positions within the top 30 MPG rankings. Remarkably, all these cars achieve an MPG rating hovering around or slightly below the 40 mile per gallon mark.</p>
+<p>It is important to emphasize that the analysis did not account for any hybrid vehicles or turbocharged cars in the top 30 MPG list. Furthermore, none of the vehicles in this ranking utilize compressed natural gas (CNG) or E85 fuel types.</p>
+<p>In conclusion, while diesel-powered Volkswagen cars predominantly occupy the top three spots in terms of MPG performance, the presence of the Chevrolet Cruze eco models and the Honda Civic HF sedan showcases that non-diesel vehicles can still achieve notable fuel efficiency and secure positions among the top 30 most fuel-efficient cars. Additionally, the exclusion of hybrid and turbocharged vehicles, as well as the absence of CNG and E85 cars in the top 30 list, highlights the specific focus on conventional fuel-powered cars in this analysis.</p>
+</section>
+<section id="comparison-between-hybrid-gasoline-and-diesel" class="level1">
+<h1>Comparison between Hybrid, Gasoline, and Diesel</h1>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' contains the word 'hybrid'</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>hybrid_cars <span class="op">=</span> df[df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'hybrid'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>sorted_hybrid_cars <span class="op">=</span> hybrid_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the first result (highest highway mpg) from the comparison</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>sorted_hybrid_cars <span class="op">=</span> sorted_hybrid_cars.iloc[<span class="dv">1</span>:]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.bar(sorted_hybrid_cars[<span class="st">'Identification.ID'</span>], sorted_hybrid_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Hybrid Cars - Highway mpg Comparison (Excluding Highest)'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' contains the word 'diesel'</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>diesel_cars <span class="op">=</span> df[df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'diesel'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>sorted_diesel_cars <span class="op">=</span> diesel_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 diesel cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>top_thirty_diesel_cars <span class="op">=</span> sorted_diesel_cars.head(<span class="dv">30</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_diesel_cars[<span class="st">'Identification.ID'</span>], top_thirty_diesel_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'lightgrey'</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 Diesel Cars - Highway mpg Comparison'</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' contains 'hybrid' or 'diesel'</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>gasoline_cars <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'hybrid|diesel'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Fuel Information.Fuel Type' is 'Gasoline'</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>gasoline_cars <span class="op">=</span> gasoline_cars[gasoline_cars[<span class="st">'Fuel Information.Fuel Type'</span>] <span class="op">==</span> <span class="st">'Gasoline'</span>]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>sorted_gasoline_cars <span class="op">=</span> gasoline_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 gasoline cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>top_thirty_gasoline_cars <span class="op">=</span> sorted_gasoline_cars.head(<span class="dv">30</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_gasoline_cars[<span class="st">'Identification.ID'</span>], top_thirty_gasoline_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 Gasoline Cars (Excluding Hybrid and Diesel) - Highway mpg Comparison'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Based on the analysis of the three graphs, the vehicles have been categorized into diesel, gasoline, and hybrid types, with a focus on comparing similar fuel types to draw meaningful conclusions. It is worth noting that while hybrid vehicles are generally known for their higher miles per gallon (MPG) performance, this data set does not show any hybrid cars among the top 30 most fuel-efficient vehicles.</p>
+<p>An interesting observation is that Volkswagen cars, particularly diesel models, demonstrate notably better MPG performance compared to other diesel alternatives on the market, including vehicles from the same auto group, such as Audis. Conversely, Mercedes-Benz diesel vehicles exhibit comparatively lower MPG, achieving approximately 60% of the rated miles per gallon that Volkswagen offers. It is worth noting that this observation raises curiosity but does not directly pertain to the diesel gate scandal that occurred a couple of years prior to this study.</p>
+<p>Furthermore, among gasoline vehicles, the majority of them operate around the 39 miles per gallon mark, and interestingly, these vehicles are predominantly of Korean or Japanese origin, with Hyundai, Kia, Mazda, and Honda accounting for all the top positions in the gasoline category. The hybrid vehicles, on the other hand, exhibit greater variance in MPG ratings. For instance, the Kia Optima hybrid and the 2011 Hyundai Sonata hybrid perform close to 39 miles per gallon, closely followed by the 2012 Honda CR-Z and the 2011 Honda CR-Z, along with other trim levels of those models. Notably, American makers such as Buick make an appearance on the list, with the Buick LaCrosse convenience hybrid rating at 35 miles per gallon.</p>
+<p>However, it should be clarified that during the research process, it was erroneously noted that the 2011 Chevrolet Silverado 1500 hybrid was rated at 230 miles per gallon, but upon further investigation, this was found to be incorrect. In reality, the Chevrolet Silverado hybrid ranks towards the bottom of the hybrids list, with its siblings also performing relatively poorly, occupying the bottom nine spots in the hybrid category.</p>
+<p>In conclusion, the data analysis reveals intriguing patterns regarding MPG performance among diesel, gasoline, and hybrid vehicles. The dominance of Volkswagen in the diesel category and the notable absence of hybrid vehicles in the top 30 most fuel-efficient cars raise interesting points for further investigation and discussion.</p>
+</section>
+<section id="discussion-on-turbochargers-for-efficiency" class="level1">
+<h1>Discussion on Turbochargers for efficiency:</h1>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' does not contain 'turbo'</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>turbo_gasoline_cars <span class="op">=</span> df[df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'turbo'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Fuel Information.Fuel Type' is 'Gasoline'</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>turbo_gasoline_cars <span class="op">=</span> turbo_gasoline_cars[turbo_gasoline_cars[<span class="st">'Fuel Information.Fuel Type'</span>] <span class="op">==</span> <span class="st">'Gasoline'</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>sorted_turbo_gasoline_cars <span class="op">=</span> turbo_gasoline_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 gasoline cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>top_thirty_turbo_gasoline_cars <span class="op">=</span> sorted_turbo_gasoline_cars.head(<span class="dv">30</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_turbo_gasoline_cars[<span class="st">'Identification.ID'</span>], top_thirty_turbo_gasoline_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 Gasoline Cars with Turbo Engine - Highway mpg Comparison'</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Engine Information.Engine Type' contains the word 'hybrid'</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">'Engine Information.Engine Type'</span>].<span class="bu">str</span>.contains(<span class="st">'hybrid'</span>, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the filtered data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>sorted_data <span class="op">=</span> filtered_data.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>top_thirty_cars <span class="op">=</span> sorted_data.head(<span class="dv">30</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart with different colors based on 'Fuel Information.Fuel Type' and 'Engine Information.Engine Type'</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> []</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fuel_type, engine_type <span class="kw">in</span> <span class="bu">zip</span>(top_thirty_cars[<span class="st">'Fuel Information.Fuel Type'</span>], top_thirty_cars[<span class="st">'Engine Information.Engine Type'</span>]):</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'diesel'</span> <span class="kw">in</span> engine_type.lower() <span class="kw">or</span> fuel_type <span class="op">==</span> <span class="st">'Diesel'</span>:</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'lightgrey'</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> fuel_type <span class="op">==</span> <span class="st">'Compressed Natural Gas'</span>:</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'green'</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">'turbo'</span> <span class="kw">in</span> engine_type.lower():</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'orange'</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'blue'</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_cars[<span class="st">'Identification.ID'</span>], top_thirty_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span>colors)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 Cars with Highest Highway mpg (Color-Coded by Fuel and Engine Type)'</span>)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Through the examination of the top vehicles for miles per gallon (MPG), it became evident that two standout cars, the 2011 Chevrolet Cruze eco and the 2012 Chevrolet Cruze eco, are equipped with turbochargers. These vehicles, despite being gasoline-powered and non-hybrid, hold prominent positions among a list primarily dominated by diesel cars. This uniqueness in the top ranks can be attributed to the presence of turbochargers, which enhance the engine’s efficiency and performance. Another notable outlier in the top MPG list is the 2012 Honda Civic HF sedan, which lacks both a turbocharger and a hybrid system.</p>
+<p>The data further reveals that the 2012 Chevrolet Sonic hatchback 1LT turbo and the 2012 Chevrolet Sonic hatchback 1 LTZ turbo also rank near the top of the MPG chart and are the only other two cars in the top 30 with turbocharged engines.</p>
+<p>Turbochargers serve as an intriguing topic due to their potential impact on increasing engine efficiency and MPG. They allow for higher horsepower and torque output from smaller engines, which can positively influence fuel economy. However, the data and the graph illustrate that while turbochargers can enhance engine performance, their presence does not necessarily result in a significant boost in MPG. Many of the top-performing gasoline cars in the MPG chart do not feature turbochargers, indicating that achieving fuel efficiency is not solely reliant on turbocharging. Although turbochargers offer advantages in terms of power, they are not extensively used in the efficiency market.</p>
+<p>In conclusion, turbochargers play a role in enhancing engine power and performance, and they have contributed to the presence of gasoline cars in the top MPG rankings. However, achieving higher fuel efficiency is a multifaceted process, and turbocharging alone does not guarantee a significant increase in MPG. Despite this, it is promising to see that turbochargers continue to be utilized in certain car models, maintaining a balance between performance and efficiency.</p>
+</section>
+<section id="lets-not-forget-about-e85-discussion" class="level1">
+<h1>Let’s not forget about E85: Discussion</h1>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Fuel Information.Fuel Type' is 'E85'</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>e85_cars <span class="op">=</span> df[df[<span class="st">'Fuel Information.Fuel Type'</span>] <span class="op">==</span> <span class="st">'E85'</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in descending order</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>sorted_e85_cars <span class="op">=</span> e85_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the top 30 E85 cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>top_thirty_e85_cars <span class="op">=</span> sorted_e85_cars.head(<span class="dv">30</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>plt.bar(top_thirty_e85_cars[<span class="st">'Identification.ID'</span>], top_thirty_e85_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 30 E85 Cars - Highway mpg Comparison'</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows where 'Fuel Information.Fuel Type' is 'E85'</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>e85_cars <span class="op">=</span> df[df[<span class="st">'Fuel Information.Fuel Type'</span>] <span class="op">==</span> <span class="st">'E85'</span>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in ascending order</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>sorted_e85_cars <span class="op">=</span> e85_cars.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the bottom 30 E85 cars based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>bottom_thirty_e85_cars <span class="op">=</span> sorted_e85_cars.head(<span class="dv">30</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>plt.bar(bottom_thirty_e85_cars[<span class="st">'Identification.ID'</span>], bottom_thirty_e85_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Bottom 30 E85 Cars - Highway mpg Comparison'</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>In addition to the analysis of gasoline, hybrid, and diesel cars, an evaluation of E85 vehicles in terms of their miles per gallon (MPG) performance was included. Among the top contenders in the E85 segment, three vehicles from the same manufacturer, namely the 2011 Chrysler Town and Country Touring L, the 2011 Chrysler Town and Country Touring, and the 2011 Chrysler Town and Country Limited, emerged as the leading competitors. These cars all exhibit a relatively similar MPG rating of approximately 25 miles per gallon, which is commendable considering the specific fuel type.</p>
+<p>Following closely behind the top contenders, the Chevrolet HHR wagon LT and its various trims, along with the 2012 Saab 9-3 SportCombi Turbo4, make up the next closest group in terms of MPG performance. Notably, Chevrolet and Chrysler vehicles dominate the higher end of the E85 segment in terms of fuel efficiency, though it is essential to recognize that the options are somewhat limited in this particular category.</p>
+<p>On the contrary, the bottom 30 vehicles in the E85 segment reveal a lower MPG performance, with GMC, Ford, and Chevrolet models occupying these positions. These cars achieve approximately 12.5 MPG, which is significantly lower compared to the top contenders for E85. Some examples of vehicles in the lower MPG range include the 2012 GMC Savana Passenger 1LT 2500 Regular Wheelbase with 324 horsepower, the 2011 Ford E-350 Super Duty Wagon XLT Extended, and the 2012 GMC Savana Passenger 1LT 3500 Regular Wheelbase with 302 horsepower, among others.</p>
+<p>In conclusion, the analysis of E85 vehicles shows that certain Chrysler and Chevrolet models perform well in terms of MPG, while other manufacturers like GMC and Ford occupy the lower end of the spectrum with lower fuel efficiency. It is important to note that the options for E85 vehicles are relatively limited, which can impact the overall MPG distribution in this category.</p>
+<p>Unsurprisingly, E85 fuel type cars dominate the bottom of the MPG chart, which I also included below.</p>
+</section>
+<section id="worst-performers-chart" class="level1">
+<h1>Worst Performers Chart:</h1>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://corgis-edu.github.io/corgis/datasets/csv/cars/cars.csv"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by 'Fuel Information.Highway mpg' in ascending order</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>sorted_cars <span class="op">=</span> df.sort_values(by<span class="op">=</span><span class="st">'Fuel Information.Highway mpg'</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the worst 30 performers based on 'Fuel Information.Highway mpg'</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>worst_thirty_cars <span class="op">=</span> sorted_cars.head(<span class="dv">30</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of colors for each car based on 'Fuel Information.Fuel Type'</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'green'</span> <span class="cf">if</span> fuel_type <span class="op">==</span> <span class="st">'E85'</span> <span class="cf">else</span> <span class="st">'red'</span> <span class="cf">for</span> fuel_type <span class="kw">in</span> worst_thirty_cars[<span class="st">'Fuel Information.Fuel Type'</span>]]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar chart with conditional coloring</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plt.bar(worst_thirty_cars[<span class="st">'Identification.ID'</span>], worst_thirty_cars[<span class="st">'Fuel Information.Highway mpg'</span>], color<span class="op">=</span>colors)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Car ID'</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Highway mpg'</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Worst 30 Performers - Highway mpg Comparison'</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="final%20blogpost_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
